@@ -4,7 +4,6 @@
  *      class: bonecard
  * 2- code vession:
  *      class: bonecard-code
- *      sizes: small, medium and large
  */
 
 
@@ -68,10 +67,10 @@
  * The code version of bonecard
  */
 
-div.bonecard-code-small {
+div.bonecard-code {
     background-color: #272822;
-    width: 350px;
-    height: 195px;
+    width: 700px;
+    height: 390px;
     border: 1px solid grey;
     border-left: 1px solid grey;
     padding: 10px;
@@ -81,33 +80,44 @@ div.bonecard-code-small {
     -moz-border-radius: 20px;
     -moz-border-radius-topright: 50px;
     -moz-border-radius-bottomright: 50px;
-    border-radius: 24px;
-    border-top-right-radius: 49px;
-    border-bottom-right-radius: 49px;
+    border-radius: 48px;
+    border-top-right-radius: 99px;
+    border-bottom-right-radius: 99px;
     position: relative;
     float: center;
     -webkit-transition: color 0.5s ease;
     box-sizing: content-box;
     box-shadow: 5px 5px 10px #888888;
 }
-
-div.bonecard-code-small:after, div.bonecard-code-small:before {
+div.bonecard-code:after, div.bonecard-code:before {
     background-color: #272822;
     position: relative;
     display: block;
     content: "";
     border: 1px solid grey;
     border-right: 1px solid #272822;
-    width: 9px;
-    left: -21px;
+    width: 18px;
+    left: -30px;
     box-sizing: content-box;
 }
-
-div.bonecard-code-small:before {
-    top: 59px;
-    height: 58px;
+div.bonecard-code:before {
+    top: 118px;
+    height: 116px;
 }
-div.bonecard-code-small:after {
-    top: 46px;
-    height: 32px;
+div.bonecard-code:after {
+    top: 160px;
+    height: 64px;
+}
+#editor {
+    width: 666px;
+    height: 360px;
+    border-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    position: absolute;
+    margin-top: -107px;
+    margin-right: 1px;
+}
+.ace_gutter {
+    background: #272822 !important;
 }
