@@ -1,0 +1,16 @@
+---
+layout: index
+title: bone101
+styles: [ '/static/bootstrap-3.3.4-dist/css/bootstrap.css', '/static/bootstrap-3.3.4-dist/css/bootstrap-theme.css', '/static/bonecard.css', '/static/create.css']
+scripts: ['/static/jquery-1.9.1.min.js', '/static/bootstrap-3.3.4-dist/js/bootstrap.min.js', '/static/ace-builds/src-noconflict/ace.js']
+script: |
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/javascript");
+---
+<input class="tutorial-title" type="text" name="tutorialTitle" value="" placeholder="Untitled tutorial">
+
+</br>
+</br>
+<h3><b>Description:</b></h3>
+<input class="tutorial-description" type="text" name="tutorial-description" value="">
