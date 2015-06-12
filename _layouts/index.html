@@ -6,12 +6,12 @@
   <link href="http://feeds.feedburner.com/BeagleBoard" rel="alternate" title="BeagleBoard.org news feed" type="application/atom+xml" />
   <link rel="icon" href="{{site.baseurl}}/static/beagle.ico" type="image/x-icon" />
   <link rel="shortcut icon" href="{{site.baseurl}}/favicon.ico" type="image/x-icon">
+  {% for style in page.styles %}
+  <link rel="stylesheet" type="text/css" media="screen" href="{{ site.baseurl }}{{ style }}" />
+  {% endfor %}
   <link rel="stylesheet" type="text/css" media="screen" href="{{site.baseurl}}/static/common.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="{{site.baseurl}}/static/login.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="{{site.baseurl}}/static/beagle.css" />
-{% for style in page.styles %}
-  <link rel="stylesheet" type="text/css" media="screen" href="{{ site.baseurl }}{{ style }}" />
-{% endfor %}
 {% if page.style %}
   <style>
 {{ page.style }}
