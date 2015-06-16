@@ -2,9 +2,9 @@
 layout: index
 title: bone101
 styles: [ '/static/bootstrap-3.3.4-dist/css/bootstrap.css', '/static/bootstrap-3.3.4-dist/css/bootstrap-theme.css', '/static/bonecard.css', '/static/create.css']
-scripts: ['/static/jquery-1.9.1.min.js', '/static/bootstrap-3.3.4-dist/js/bootstrap.min.js', '/static/ace-builds/src-noconflict/ace.js', '/static/create.js', '/static/ckeditor/ckeditor.js']
+scripts: ['/static/jquery-1.9.1.min.js', '/static/bootstrap-3.3.4-dist/js/bootstrap.min.js', '/static/ace-builds/src-noconflict/ace.js', '/static/ckeditor/ckeditor.js']
 script: |
-    var editor = ace.edit("editor");
+    var editor = ace.edit("editor0");
     editor.setTheme("ace/theme/monokai");
     editor.getSession().setMode("ace/mode/javascript");
 ---
@@ -23,8 +23,14 @@ script: |
 </div>
 </br>
 </br>
-</br>
-</br>
+<div class="row">
+	<div class="col-md-12" >
+		<ul class="bonecards-list sortable">
+			<li id="bonecard-micro-item0" class="boncards-list-item"><div class="bonecard bonecard-micro"><div class="bonecard-micro-content wordwrap">untitled Bonecard0</div></div></li>
+		</ul>
+	</div>
+</div>
+
 
 <div class="view-content">
 	<!-- bonecard block -->
