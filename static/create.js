@@ -6,6 +6,9 @@ window.onload = function() {
 	var bonecard_id = 1;
 	var selected_id = 0;
 
+	highlight_selected_card(selected_id);
+	
+
 	$('button.add-bonecard').on('click', function(e) {
 		e.preventDefault();
 		$('ul.bonecards-list').append(boncard_item(bonecard_id));
@@ -13,13 +16,50 @@ window.onload = function() {
 		$('div.view-content').append(boncard_block(bonecard_id));
 		// reinit appended textarea to be ckeditor
 		$('div.view-content').find('textarea#editor'+bonecard_id).ckeditor().end();
-
+		
+		// apply 'on click' on the new added bonecard
+		update_boncards_list_action();
+	
 		editor = ace.edit("editor"+bonecard_id);
     editor.setTheme("ace/theme/monokai");
     editor.getSession().setMode("ace/mode/javascript");
 		
 		bonecard_id++;
 	});
+
+	function update_boncards_list_action() {
+		$('ul.bonecards-list').find('li').each(function(i) {
+			var $this = $(this);
+			$this.on('click', function() {
+				selected_id = $this.attr('id').substring(19);
+				highlight_selected_card(selected_id);
+				display_selected_card(selected_id);
+			});
+		});
+	}
+
+	function highlight_selected_card(id) {
+		$('ul.bonecards-list').find('li').each(function(i) {
+			var $this = $(this);
+			var $card  = $this.find('.bonecard-micro');
+			current_id = $this.attr('id').substring(19);
+			if(current_id == id)
+				$card.css('box-shadow', '5px 5px 10px #de7224');
+			else
+				$card.css('box-shadow', '5px 5px 10px #888888');
+		});
+	}
+
+	function display_selected_card(id) {
+		$('div.view-content').children().each(function() {
+			$this = $(this);
+			current_id = $this.attr('id').substring(14);
+			if(current_id == selected_id)
+				$this.show();
+			else
+				$this.hide();
+		});
+	}
 	
 	// html content for adding new bonecard-micro to the list
 	function boncard_item(index) {
