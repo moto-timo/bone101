@@ -1,5 +1,5 @@
-window.onload = function() {
-		// make bonecard list sortable
+$( document ).ready( function() {
+	// make bonecard list sortable
 	$('.sortable').sortable();
 
 	//append new bonecard to the list when clicking on 'add bonecard'
@@ -157,4 +157,4 @@ window.onload = function() {
 					 '"preview'+index+'"></br><div class="bonecard editor-preview">'+
 					 '<div id="editor'+index+'-content" class="editor"></div></div></div></div></div></div>';
 	}
-}
+});
