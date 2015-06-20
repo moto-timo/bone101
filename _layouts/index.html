@@ -12,6 +12,7 @@
   <link rel="stylesheet" type="text/css" media="screen" href="{{site.baseurl}}/static/common.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="{{site.baseurl}}/static/login.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="{{site.baseurl}}/static/beagle.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="{{site.baseurl}}/static/github-login.css" />
 {% if page.style %}
   <style>
 {{ page.style }}
@@ -35,7 +36,9 @@
  </div>
  <a name="top" id="top"></a>
  <div id="wrapper">
-  <div id='cssmenu'></div>
+  <div id='cssmenu'>
+    {% include github-login.html %}
+  </div>
   <div id="content">
    <div id="contentbuffer">
     {{ content }}
@@ -44,6 +47,10 @@
   {% for script in page.scripts %}
     <script src="{{ site.baseurl }}{{ script }}"></script>
   {% endfor %}
+  <script src="/static/js.cookie.js"></script>
+  <script src="{{ site.baseurl }}/static/oauth.min.js"></script>
+  <script src="{{ site.baseurl }}/static/github-login.js"></script>
+
     {% include footer.html %}
     {% if page.script %}
       <script>
