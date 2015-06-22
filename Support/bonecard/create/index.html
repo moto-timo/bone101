@@ -1,8 +1,9 @@
 ---
 layout: index
 title: bone101
-styles: [ '/static/bootstrap-3.3.4-dist/css/bootstrap.css', '/static/bootstrap-3.3.4-dist/css/bootstrap-theme.css', '/static/bonecard.css', '/static/create.css']
-scripts: ['/static/jquery.js', '/static/bootstrap-3.3.4-dist/js/bootstrap.min.js', '/static/ace-builds/src-noconflict/ace.js', '/static/create.js', '/static/ckeditor/ckeditor.js', '/static/ckeditor/adapters/jquery.js', '/static/jquery.sortable.min.js']
+styles: ['/static/create.css']
+scripts-before: ['/static/ace-builds/src-noconflict/ace.js', '/static/ckeditor/ckeditor.js', '/static/ckeditor/adapters/jquery.js', '/static/jquery.sortable.min.js']
+scripts-after: ['/static/create.js']
 script: |
     var editor = ace.edit("editor0");
     editor.setTheme("ace/theme/monokai");
