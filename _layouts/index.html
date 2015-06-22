@@ -22,6 +22,12 @@
   </style>
 {% endif %}
   <script src="{{ site.baseurl }}/static/jquery.js"></script>
+  <script src="{{ site.baseurl }}/static/js.cookie.js"></script>
+  <script src="{{ site.baseurl }}/static/bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
+  <script src="{{ site.baseurl }}/static/oauth.min.js"></script>
+  {% for script in page.scripts-before %}
+    <script src="{{ site.baseurl }}{{ script }}"></script>
+  {% endfor %}
 
 {{ page.head }}
 </head><body>
@@ -55,11 +61,9 @@
     endIndex = $('a.new-tutorial').attr('href').indexOf('/Support');
     var base_url = $('a.new-tutorial').attr('href').substring(0, endIndex);
   </script>
-  {% for script in page.scripts %}
+  {% for script in page.scripts-after %}
     <script src="{{ site.baseurl }}{{ script }}"></script>
   {% endfor %}
-  <script src="{{ site.baseurl }}/static/js.cookie.js"></script>
-  <script src="{{ site.baseurl }}/static/oauth.min.js"></script>
   <script src="{{ site.baseurl }}/static/github-login.js"></script>
 
     {% include footer.html %}
