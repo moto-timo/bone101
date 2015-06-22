@@ -38,7 +38,7 @@
  <div id="wrapper">
   <div id='cssmenu'>
     <ul>
-      <li class="has-sub"><a href="/Support/bone101/create.html"><span>New Tutorial</span></a>
+      <li class="has-sub"><a class="new-tutorial" href="{{ site.baseurl }}/Support/bone101/create.html"><span>New Tutorial</span></a>
       </li>
     </ul>
     {% include github-login.html %}
@@ -48,6 +48,10 @@
     {{ content }}
    </div>
   </div>
+  <script>
+    endIndex = $('a.new-tutorial').attr('href').indexOf('/Support');
+    var base_url = $('a.new-tutorial').attr('href').substring(0, endIndex);
+  </script>
   {% for script in page.scripts %}
     <script src="{{ site.baseurl }}{{ script }}"></script>
   {% endfor %}
@@ -60,7 +64,7 @@
       <script>
     {{ page.script }}
       </script>
-  {% endif %}
+    {% endif %}
  </div>
  <div id="fb-root"></div>
 </body></html>
