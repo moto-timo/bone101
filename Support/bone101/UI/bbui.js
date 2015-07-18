@@ -115,6 +115,10 @@ var UI = (function() {
         var zeroY = axisStartY + yWidth/2;
         var zoomVal = [.125,.25,.5,1];
         var zoomIndex = 3; var zoom = zoomVal[zoomIndex];
+        var plus = {x: axisStartX + 10, y: axisStartY + 451, endX: axisStartX + 25, endY: axisStartY + 451};
+        var minus = {x: plus.x - 20, y: plus.y + 2, endX: plus.endX - 20, endY: plus.endY};
+        var stopBtn = {x: minus.x - 19, y: minus.y - 16, endX: minus.endX - 22, endY: minus.endY};
+        var playBtn = {x: minus.x - 38, y: minus.y - 17, endX: minus.endX - 39, endY: minus.endY};
         var rect = {x: 0, y: BBposY - 20, w: canvas.Base.e.width, h: 540};
         var rectInner = {x: rect.x + 20, y: rect.y + 15, w: 420, h: 510};
         var snapProbe = {x: rect.x + 35, y: rect.y + 25};
@@ -671,6 +675,7 @@ var UI = (function() {
             
             graph.draw = function(canvas) {
                 console.time("draw Graph");
+                drawGraphBtn();
                 drawAxis(canvas);
                 console.timeEnd("draw Graph");
             }
@@ -678,7 +683,7 @@ var UI = (function() {
             graph.draw(canvas);
             return graph;
         })();
-        
+
         // draw both axis
         function drawAxis(canvas) {
             yAxis(canvas);
@@ -789,6 +794,44 @@ var UI = (function() {
                 ynum += 20;
                 volt -= 2 * 5 / 20;
             };
+        };
+
+        // draw the zoom in/out, play, and stop button
+        function drawGraphBtn(){
+            canvas.Graph.ctx.fillStyle= "black";
+            canvas.Graph.ctx.font = 'bold 21pt Lucinda Grande';
+            // zoom in
+            canvas.Graph.ctx.fillText("+", plus.x, plus.y);
+            canvas.Graph.ctx.font = '30pt Lucinda Grande';
+            // zoom out
+            canvas.Graph.ctx.fillText("-", minus.x, minus.y);
+            canvas.Graph.ctx.fillStyle= "black";
+            canvas.Graph.ctx.font = '14pt Lucinda Grande';
+            // playBtn button
+            canvas.Graph.ctx.save();
+            if (status === "on"){
+                canvas.Graph.ctx.fillStyle = "#FF4500";
+            }
+            else {canvas.Graph.ctx.fillStyle = "black"}
+            canvas.Graph.ctx.beginPath();
+            canvas.Graph.ctx.moveTo(playBtn.x,playBtn.y);
+            canvas.Graph.ctx.lineTo(playBtn.x + 10,playBtn.y+7);
+            canvas.Graph.ctx.lineTo(playBtn.x,playBtn.y+14);
+            canvas.Graph.ctx.fill();
+            canvas.Graph.ctx.restore();
+            // stopBtn button
+            canvas.Graph.ctx.save();
+            if (status === "off"){
+                canvas.Graph.ctx.fillStyle= "#FF4500";
+            }
+            else {canvas.Graph.ctx.fillStyle= "black"}
+            canvas.Graph.ctx.beginPath();
+            canvas.Graph.ctx.moveTo(stopBtn.x,stopBtn.y);
+            canvas.Graph.ctx.lineTo(stopBtn.x + 12,stopBtn.y);
+            canvas.Graph.ctx.lineTo(stopBtn.x + 12,stopBtn.y+12);
+            canvas.Graph.ctx.lineTo(stopBtn.x,stopBtn.y+12);
+            canvas.Graph.ctx.fill();
+            canvas.Graph.ctx.restore();
         };
 
         function Position(event) {
