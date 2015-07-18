@@ -334,7 +334,8 @@ var UI = (function() {
                 canvas.Graph.ctx.fill();
             };
             
-            button.highlightStop = function() {
+            button.highlightPlay = function() {
+                console.log("highlight");
                 canvas.Graph.ctx.fillStyle = "#FF4500";
                 canvas.Graph.ctx.beginPath();
                 canvas.Graph.ctx.moveTo(buttons.play.x, buttons.play.y);
@@ -653,6 +654,10 @@ var UI = (function() {
 
         ui.graph = (function() {
             var graph = {};
+            graph.timer; graph.timeCount = 0;
+            graph.interval = 0; graph.status;
+            graph.timeValues = [];
+
             var bg = {
                 x: 0,
                 y: BBposY - 20,
@@ -676,7 +681,8 @@ var UI = (function() {
             graph.draw = function(canvas) {
                 console.time("draw Graph");
                 drawGraphBtn();
-                drawAxis(canvas);
+                drawAxis(canvas, graph.interval);
+                console.log(graph.interval);
                 console.timeEnd("draw Graph");
             }
 
@@ -685,13 +691,13 @@ var UI = (function() {
         })();
 
         // draw both axis
-        function drawAxis(canvas) {
+        function drawAxis(canvas, interval) {
             yAxis(canvas);
-            xAxis(canvas);
+            xAxis(canvas, interval);
         };
 
         // draw x axis
-        function xAxis(canvas) {
+        function xAxis(canvas, interval) {
             canvas.Graph.ctx.moveTo(axisStartX, axisStartY + 200);
             canvas.Graph.ctx.lineTo(axisStartX + 375, axisStartY + 200);
             canvas.Graph.ctx.strokeStyle = "black";
@@ -701,12 +707,11 @@ var UI = (function() {
             canvas.Graph.ctx.font = '12pt Lucinda Grande';
             canvas.Graph.ctx.fillText('Time [s]', axisStartX + 175, axisStartY + 449);
             canvas.Graph.ctx.save();
-            xTicks(canvas);
+            xTicks(canvas, interval);
         };
 
         // draw x tick marks, take into account the interval if timer on 
-        function xTicks(canvas) {
-            var interval = 0;
+        function xTicks(canvas, interval) {
             var x = 0;
             var countX = 0;
             var xnum = 95;
@@ -898,6 +903,7 @@ var Events = (function() {
             'slideBar': { event: 'mousemove', func: slideBar },
             'zooming': { event: 'mouseup', func: zooming },
             'stop': { event: 'mouseup', func: stop },
+            'setTimer': { event: 'mouseup', func: setTimer },
             'record': { event: 'mouseup', func: record },
             'pinSelected': { event: 'click', func: pinSelected },
             'release': { event: 'mouseup', func: release }
@@ -1010,11 +1016,13 @@ var Events = (function() {
                 e.ui.button.highlightMinus();
                 break;
             case "stop":
+                listen(false, 'setTimer');
+                listen(false, 'play');
                 listen(true, 'stop');
                 e.ui.button.highlightStop();
                 break;
             case "play":
-                listen(true, 'record');
+                listen(true, 'setTimer');
                 e.ui.button.highlightPlay();
                 break;
             case "slider":
@@ -1054,13 +1062,55 @@ var Events = (function() {
     function zooming(event) {
         
     }
-    
+
+    function play(event) {
+        canvas = Canvas.get();
+        width = canvas.Graph.e.width;
+        height = canvas.Graph.e.height;
+        console.log(canvas);
+        console.log('width: ' + width + ', height: ' + height);
+        canvas.Graph.ctx.clearRect(0,0,width,height);
+        var len = e.ui.graph.timeValues.length;
+        e.ui.graph.timeValues[len] = e.ui.graph.timeCount/100;
+        e.ui.graph.timeCount += 5;
+        e.ui.graph.draw(canvas);
+        e.ui.button.highlightPlay();
+        if (e.ui.graph.timeCount > 375){
+            e.ui.graph.interval += 5;
+        }
+    };
+
     function stop(event) {
-        
+        canvas = Canvas.get();
+        width = canvas.Graph.e.width;
+        height = canvas.Graph.e.height;
+        if (e.ui.graph.status != "off"){
+            e.ui.graph.status = "off";
+            clearInterval(e.ui.graph.timer);
+            canvas.Graph.ctx.clearRect(0,0,width,height);
+            e.ui.graph.draw(canvas);
+        }
+        canvas.Graph.ctx.clearRect(0,0,width,height);
+        e.ui.graph.draw(canvas);
+        e.ui.button.highlightStop();
     }
+
+    // start recording data
+    function setTimer(event){
+        e.ui.graph.status = "on";
+        e.ui.graph.interval = 0;
+        e.ui.graph.timeCount = 0;
+        e.ui.graph.timeValues = [];
+        e.ui.graph.timer = setInterval(play, 50);
+    };
     
     function record(event) {
-        
+        if (status != "on"){
+            setTimer();
+        }
+        else {
+        //  drawGraph();
+        }
     }
     
     function selectPin(event) {
