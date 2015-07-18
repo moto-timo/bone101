@@ -110,6 +110,11 @@ var UI = (function() {
         var BBposY = 60;
         var axisStartY = BBposY + 40;
         var axisStartX = BBposX + 375;
+        var xWidth = 375; var yWidth = 400;
+        var zeroX = axisStartX;
+        var zeroY = axisStartY + yWidth/2;
+        var zoomVal = [.125,.25,.5,1];
+        var zoomIndex = 3; var zoom = zoomVal[zoomIndex];
         var rect = {x: 0, y: BBposY - 20, w: canvas.Base.e.width, h: 540};
         var rectInner = {x: rect.x + 20, y: rect.y + 15, w: 420, h: 510};
         var snapProbe = {x: rect.x + 35, y: rect.y + 25};
@@ -652,7 +657,6 @@ var UI = (function() {
             };
 
             // draw gray background, buttons, and graph
-            //drawGraph(canvas, uiElements);
             canvas.Base.ctx.fillStyle = 'rgb(225,225,225)';
             canvas.Base.ctx.fillRect(bg.x, bg.y, bg.w, bg.h);
             canvas.Base.ctx.strokeStyle = 'rgb(255,255,255)';
@@ -665,9 +669,128 @@ var UI = (function() {
                 
             };
             
+            graph.draw = function(canvas) {
+                console.time("draw Graph");
+                drawAxis(canvas);
+                console.timeEnd("draw Graph");
+            }
+
+            graph.draw(canvas);
             return graph;
         })();
         
+        // draw both axis
+        function drawAxis(canvas) {
+            yAxis(canvas);
+            xAxis(canvas);
+        };
+
+        // draw x axis
+        function xAxis(canvas) {
+            canvas.Graph.ctx.moveTo(axisStartX, axisStartY + 200);
+            canvas.Graph.ctx.lineTo(axisStartX + 375, axisStartY + 200);
+            canvas.Graph.ctx.strokeStyle = "black";
+            canvas.Graph.ctx.lineWidth = 2;
+            canvas.Graph.ctx.stroke();
+            canvas.Graph.ctx.strokeStyle = "black";
+            canvas.Graph.ctx.font = '12pt Lucinda Grande';
+            canvas.Graph.ctx.fillText('Time [s]', axisStartX + 175, axisStartY + 449);
+            canvas.Graph.ctx.save();
+            xTicks(canvas);
+        };
+
+        // draw x tick marks, take into account the interval if timer on 
+        function xTicks(canvas) {
+            var interval = 0;
+            var x = 0;
+            var countX = 0;
+            var xnum = 95;
+            var time = 1;
+            var prec = Math.ceil(Math.log(Math.abs(interval) / 100 + 1.1) / Math.LN10) + 1;
+            canvas.Graph.ctx.strokeStyle = "black";
+            while (x <= xWidth + interval) {
+                if (axisStartX + x - interval >= zeroX) {
+                    if (countX % 10 === 0) {
+                        canvas.Graph.ctx.beginPath();
+                        canvas.Graph.ctx.moveTo(axisStartX + x - interval, axisStartY + 195);
+                        canvas.Graph.ctx.lineTo(axisStartX + x - interval, axisStartY + 210);
+                        canvas.Graph.ctx.lineWidth = 2;
+                        canvas.Graph.ctx.stroke();
+                    } else {
+                        canvas.Graph.ctx.beginPath();
+                        canvas.Graph.ctx.moveTo(axisStartX + x - interval, axisStartY + 195);
+                        canvas.Graph.ctx.lineTo(axisStartX + x - interval, axisStartY + 205);
+                        canvas.Graph.ctx.lineWidth = 2;
+                        canvas.Graph.ctx.stroke();
+                    }
+                }
+                x += 10;
+                countX += 1;
+            };
+            canvas.Graph.ctx.fillStyle = "black";
+            canvas.Graph.ctx.font = '8pt Lucinda Grande';
+            while (xnum <= xWidth + interval) {
+                if (axisStartX + xnum - interval >= zeroX) {
+                    canvas.Graph.ctx.fillText(time.toPrecision(prec).toString(),
+                        axisStartX + xnum - interval, axisStartY + 220);
+                }
+                xnum += 100;
+                time = (xnum + 3) / 100;
+            };
+        };
+
+        // y axis
+        function yAxis(canvas) {
+            var y = 0;
+            var countY = 0;
+            var ynum = 4;
+            var volt = 5;
+            var text;
+            canvas.Graph.ctx.beginPath();
+            canvas.Graph.ctx.moveTo(axisStartX, axisStartY);
+            canvas.Graph.ctx.lineTo(axisStartX, axisStartY + 400);
+            canvas.Graph.ctx.strokeStyle = "black";
+            canvas.Graph.ctx.lineWidth = 2;
+            canvas.Graph.ctx.stroke();
+            canvas.Graph.ctx.save();
+            canvas.Graph.ctx.font = '12pt Lucinda Grande';
+            canvas.Graph.ctx.translate(canvas.Graph.ctx.width / 2, canvas.Graph.ctx.height / 2);
+            canvas.Graph.ctx.rotate(-0.5 * Math.PI);
+            canvas.Graph.ctx.translate(-canvas.Graph.ctx.width / 2, -canvas.Graph.ctx.height / 2);
+            canvas.Graph.ctx.strokeStyle = "black";
+            canvas.Graph.ctx.fillText('Voltage', axisStartX - 240, axisStartY + 380);
+            canvas.Graph.ctx.restore();
+            while (y <= yWidth) {
+                if (countY % 2 === 0) {
+                    canvas.Graph.ctx.beginPath();
+                    canvas.Graph.ctx.moveTo(axisStartX - 10, axisStartY + y);
+                    canvas.Graph.ctx.lineTo(axisStartX + 5, axisStartY + y);
+                    canvas.Graph.ctx.lineWidth = 2;
+                    canvas.Graph.ctx.stroke();
+                } else {
+                    canvas.Graph.ctx.beginPath();
+                    canvas.Graph.ctx.moveTo(axisStartX - 5, axisStartY + y);
+                    canvas.Graph.ctx.lineTo(axisStartX + 5, axisStartY + y);
+                    canvas.Graph.ctx.lineWidth = 2;
+                    canvas.Graph.ctx.stroke();
+                }
+                y += 10;
+                countY += 1;
+            };
+            canvas.Graph.ctx.fillStyle = "black";
+            canvas.Graph.ctx.font = '8pt Lucinda Grande';
+            while (ynum <= yWidth + 4) {
+                text = (volt * zoom).toPrecision(2).toString();
+                if (volt < 0) {
+                    canvas.Graph.ctx.fillText(text, axisStartX - 36, axisStartY + ynum);
+                } else {
+                    canvas.Graph.ctx.fillText(text.toString(), axisStartX - 32, axisStartY + ynum);
+                }
+                ynum += 20;
+                volt -= 2 * 5 / 20;
+            };
+        };
+
         function Position(event) {
             var rect = canvas.Base.e.getBoundingClientRect();
             var coords = [];
