@@ -173,7 +173,8 @@ function restore() {
   target="_blank">Cloud9 IDE</a> and the <a target="_blank"
   href="http://beagleboard.org/project/bonescript">BoneScript JavaScript library</a>, 
   creating a simple application to blink one of the 4 user programmable LEDs on the
-  BeagleBone is a good start.</p>
+  BeagleBone is a good start. <a class ="cloud9ide" href="#cloud9" onclick="showHide('cloud9ide')">More...</a></p>
+  <div id="cloud9ide" style="display: none;">
  <ul class="action">
   <li class="wow fadeIn"><b>Step A:</b>&nbsp;Close any open file tabs.<br /><br />
    <img src="{{site.baseurl}}/static/images/c9-close-tab.png" /><br /><br />
@@ -277,7 +278,7 @@ function toggle() {
      
  <h3>Other programming environments</h3>
  <p>The board also ships with gcc, python and more that can be invoked directly from the command-line.</p>
-
+</div>
  <h1 id="hardware">Hardware documentation</h1>
  <p><a target="_blank" href="http://circuitco.com/support/index.php?title=BeagleBoneBlack">
   CircuitCo.com's BeagleBoneBlack page</a> documents all of the known hardware issues, 
@@ -299,7 +300,8 @@ function toggle() {
  </p>
 
  <h3 id="headers">Headers</h3>
- <p>The expansion headers provide extensive I/O capabilities.</p>
+ <p>The expansion headers provide extensive I/O capabilities. <a class ="hardware-headers" href="#headers" onclick="showHide('hardware-headers')">More...</a></p>
+ <div id="hardware-headers" style="display: none;">
  <img class="wow fadeIn" src="{{site.baseurl}}/static/images/cape-headers.png" width="100%" />
  <p>Each digital I/O pin has 8 different modes that can be selected, including GPIO.</p>
  <img class="wow fadeIn" src="{{site.baseurl}}/static/images/cape-headers-digital.png" width="100%" />
@@ -328,14 +330,16 @@ function toggle() {
  <p>The second I2C bus is available for you to configure and use.</p>
  <img class="wow fadeIn" src="{{site.baseurl}}/static/images/cape-headers-spi.png" width="100%" />
  <p>For shifting out data fast, you might consider using one of the SPI ports.</p>
-
+</div>
  <img class="wow fadeIn" src="{{site.baseurl}}/static/images/boris-cape.png" width="20%" align="right" />
  <h1 id="capes"><a target="_blank" href="http://beaglebonecapes.com">Capes</a></h1>
  <p>Capes are really just daughterboards for BeagleBone and BeagleBone Black, but
   we refer to them enough that a short name makes sense.  BeagleBone wears them, they
   typically have a cut-out around the Ethernet connector that gives them a cape-like
-  shape and <em>Underdog is a Beagle</em>!
+  shape and <em>Underdog is a Beagle</em>! <a class ="capes-section" href="#capes" onclick="showHide('capes-section')">More...</a>
  </p>
+ <div id="capes-section" style="display: none;">
+
  <p>The <a href="http://beaglebonecapes.com" target="_blank">beaglebonecapes.com</a>
   site attempts to consolidate the currently available cape add-on boards for
   BeagleBone and BeagleBone Black.
@@ -373,6 +377,7 @@ function toggle() {
   <li><em><a href="{{site.baseurl}}/Support/BoneScript/cape_bacon">Bacon Cape</a></em> - Teach basic interactions</li>
  </ul>
 </div>
+</div>
 
 <script type="text/javascript">
   // var wow = new WOW(
@@ -390,4 +395,12 @@ function toggle() {
   // );
   // wow.init();
   new WOW().init();
+  function showHide(sellctor) {
+    $('#' + sellctor).toggle();
+    $anchor = $('a.' + sellctor);
+    if($anchor.text() == 'More...')
+      $anchor.text('Less...');
+    else
+      $anchor.text('More...');
+  }
 </script>
