@@ -1,7 +1,8 @@
 ---
 layout: index
 title: bone101
-scripts: [ '/static/bonescript-demo.js' ]
+styles: [ '/static/third_party/animate/animate.min.css' ]
+scripts: [ '/static/bonescript-demo.js', '/static/third_party/wow/wow.min.js' ]
 style: |
    #code {
     position: relative;
@@ -31,11 +32,11 @@ style: |
   <p>The left-hand navigation bar will help you explore
    your board and learn how to program it.
   </p>
-  <img src="{{site.baseurl}}/static/images/artist-tested-engineer-approved.jpg" />
+  <div class="wow fadeIn"><img src="{{site.baseurl}}/static/images/artist-tested-engineer-approved.jpg" /></div>
   <h2 id="software"></h2>
   <h2>Latest ARM open source focused on easy hardware experimentation</h2>
   <ul>
-   <img src="{{site.baseurl}}/static/images/beaglebone-in-hand.JPG" align="right" width="25%" />
+   <img class="wow flipInX" src="{{site.baseurl}}/static/images/beaglebone-in-hand.JPG" align="right" width="25%" />
    <li>Ships ready to use<ul>
     <li>Debian Linux distribution with C++, Perl, Python, ...</li>
     <li>Linux drivers support countless USB peripherals</li>
@@ -74,7 +75,7 @@ style: |
    </li>
    <li><a target="_blank" href="http://beagleboard.org/project">Projects page</a></li>
   </ul></li>
-  <img align="right" src="{{site.baseurl}}/static/images/imager.png" width="30%" />
+  <img class="wow flipInX" align="right" src="{{site.baseurl}}/static/images/imager.png" width="30%" />
   <li>SD card images like get-out-of-jail-free card
    <pre>xzcat XXX.img.xz | sudo dd of=/dev/sdX</pre>
    <ul>
@@ -164,23 +165,24 @@ function restore() {
  <p>To begin editing programs that live on your board, you can use the Cloud9 IDE.</p>
  <p>Click on the "Cloud9 IDE" link above to start the editor.</p>
  <a target="_blank" class="cloud9-url">
-  <img src="{{site.baseurl}}/static/images/Cloud9_Screen.png" width="100%" />
+  <div>
+  <img class="wow bounceInUp" src="{{site.baseurl}}/static/images/Cloud9_Screen.png" width="100%" />
+  </div>
  </a>
-
  <p>As a simple exercise to become familiar with <a href="http://c9.io"
   target="_blank">Cloud9 IDE</a> and the <a target="_blank"
   href="http://beagleboard.org/project/bonescript">BoneScript JavaScript library</a>, 
   creating a simple application to blink one of the 4 user programmable LEDs on the
   BeagleBone is a good start.</p>
  <ul class="action">
-  <li><b>Step A:</b>&nbsp;Close any open file tabs.<br /><br />
+  <li class="wow fadeIn"><b>Step A:</b>&nbsp;Close any open file tabs.<br /><br />
    <img src="{{site.baseurl}}/static/images/c9-close-tab.png" /><br /><br />
   </li>
-  <li><b>Step B:</b>&nbsp;Click the &quot;+&quot; in the top-right to create a new file.<br /><br />
+  <li class="wow fadeIn"><b>Step B:</b>&nbsp;Click the &quot;+&quot; in the top-right to create a new file.<br /><br />
    <img src="{{site.baseurl}}/static/images/c9-create-tab.png" /><br /><br />
    <img src="{{site.baseurl}}/static/images/c9-new-tab.png" /><br /><br />
   </li>
-  <li><b>Step C:</b>&nbsp;Copy and paste the following code into the new tab:<br />
+  <li class="wow fadeIn"><b>Step C:</b>&nbsp;Copy and paste the following code into the new tab:<br />
    <pre>
 var b = require('bonescript');
 
@@ -198,18 +200,18 @@ function toggle() {
     b.digitalWrite("USR3", state);
 }</pre>
   </li>
-  <li><b>Step D:</b>&nbsp;Save the file by clicking the disk icon and giving the file a name with the .js extension.<br /><br />
-   <img src="{{site.baseurl}}/static/images/c9-disk-icon.png" /><br /><br />
-   <img src="{{site.baseurl}}/static/images/c9-save-name.png" /><br /><br />
-   <img src="{{site.baseurl}}/static/images/c9-save-name-complete.png" /><br /><br />
-   <img src="{{site.baseurl}}/static/images/c9-named-tab.png" /><br /><br />
+  <li class="wow fadeIn"><b>Step D:</b>&nbsp;Save the file by clicking the disk icon and giving the file a name with the .js extension.<br /><br />
+   <img class="wow fadeIn" class="wow fadeIn" src="{{site.baseurl}}/static/images/c9-disk-icon.png" /><br /><br />
+   <img class="wow fadeIn" src="{{site.baseurl}}/static/images/c9-save-name.png" /><br /><br />
+   <img class="wow fadeIn" src="{{site.baseurl}}/static/images/c9-save-name-complete.png" /><br /><br />
+   <img class="wow fadeIn" src="{{site.baseurl}}/static/images/c9-named-tab.png" /><br /><br />
   </li>
-  <li><b>Step E:</b>&nbsp;Run the code by selecting the arrow to the right of &quot;run&quot; (or &quot;debug&quot;) in the toolbar to pull down the list of files to run and select your new file.<br /><br />
+  <li class="wow fadeIn"><b>Step E:</b>&nbsp;Run the code by selecting the arrow to the right of &quot;run&quot; (or &quot;debug&quot;) in the toolbar to pull down the list of files to run and select your new file.<br /><br />
    <img src="{{site.baseurl}}/static/images/c9-run.png" /><br /><br />
   </li>
-  <li><b>Step F:</b>&nbsp;Observe the BeagleBone USR3 LED blinking steadily about 5 times a second.<br /><br />
+  <li class="wow fadeIn"><b>Step F:</b>&nbsp;Observe the BeagleBone USR3 LED blinking steadily about 5 times a second.<br /><br />
   </li>
-  <li><b>Step G:</b>&nbsp;Stop the code by clicking &quot;stop&quot; in the toolbar.<br /><br />
+  <li class="wow fadeIn"><b>Step G:</b>&nbsp;Stop the code by clicking &quot;stop&quot; in the toolbar.<br /><br />
    <img src="{{site.baseurl}}/static/images/c9-stop.png" /><br /><br />
   </li>
  </ul>
@@ -291,43 +293,43 @@ function toggle() {
  </p>
 
  <h3>BeagleBone Black hardware details</h3>
- <img src="{{site.baseurl}}/static/images/black_hardware_details.png" width="100%" />
+ <img class="wow fadeIn" src="{{site.baseurl}}/static/images/black_hardware_details.png" width="100%" />
  <p>Revision A5 also provides a POWER button that can be used to enter and exit hibernate modes once
   that feature is implemented in the software.
  </p>
 
  <h3 id="headers">Headers</h3>
  <p>The expansion headers provide extensive I/O capabilities.</p>
- <img src="{{site.baseurl}}/static/images/cape-headers.png" width="100%" />
+ <img class="wow fadeIn" src="{{site.baseurl}}/static/images/cape-headers.png" width="100%" />
  <p>Each digital I/O pin has 8 different modes that can be selected, including GPIO.</p>
- <img src="{{site.baseurl}}/static/images/cape-headers-digital.png" width="100%" />
+ <img class="wow fadeIn" src="{{site.baseurl}}/static/images/cape-headers-digital.png" width="100%" />
  <p>In GPIO mode, each digital I/O can produce interrupts.</p>
- <img id="headers-pwm" src="{{site.baseurl}}/static/images/cape-headers-pwm.png" width="100%" />
+ <img class="wow fadeIn" id="headers-pwm" src="{{site.baseurl}}/static/images/cape-headers-pwm.png" width="100%" />
  <p>Up to 8 digital I/O pins can be configured with pulse-width modulators (PWM) to
   produce signals to control motors or create pseudo analog voltage levels, without taking
   up any extra CPU cycles.
  </p>
- <img src="{{site.baseurl}}/static/images/cape-headers-analog.png" width="100%" />
+ <img class="wow fadeIn" src="{{site.baseurl}}/static/images/cape-headers-analog.png" width="100%" />
  <p><em>Make sure you don't input more than 1.8V to the analog input pins.</em></p>
  <p>This is a single 12-bit analog-to-digital converter with 8 channels, 7 of which
   are made available on the headers.
  </p>
- <img src="{{site.baseurl}}/static/images/cape-headers-serial.png" width="100%" />
+ <img class="wow fadeIn" src="{{site.baseurl}}/static/images/cape-headers-serial.png" width="100%" />
  <p>There is a dedicated header for getting to the UART0 pins and connecting a
   debug cable. Five additional serial ports are brought to the expansion headers,
   but one of them only has a single direction brought to the headers.
  </p>
- <img src="{{site.baseurl}}/static/images/cape-headers-i2c.png" width="100%" />
+ <img class="wow fadeIn" src="{{site.baseurl}}/static/images/cape-headers-i2c.png" width="100%" />
  <p>The first I2C bus is utilized for reading EEPROMS on cape add-on boards and
   can't be used for other digital I/O operations without interfering with that
   function, but you can still use it to add other I2C devices at available
   addresses.
  </p>
  <p>The second I2C bus is available for you to configure and use.</p>
- <img src="{{site.baseurl}}/static/images/cape-headers-spi.png" width="100%" />
+ <img class="wow fadeIn" src="{{site.baseurl}}/static/images/cape-headers-spi.png" width="100%" />
  <p>For shifting out data fast, you might consider using one of the SPI ports.</p>
 
- <img src="{{site.baseurl}}/static/images/boris-cape.png" width="20%" align="right" />
+ <img class="wow fadeIn" src="{{site.baseurl}}/static/images/boris-cape.png" width="20%" align="right" />
  <h1 id="capes"><a target="_blank" href="http://beaglebonecapes.com">Capes</a></h1>
  <p>Capes are really just daughterboards for BeagleBone and BeagleBone Black, but
   we refer to them enough that a short name makes sense.  BeagleBone wears them, they
@@ -338,11 +340,11 @@ function toggle() {
   site attempts to consolidate the currently available cape add-on boards for
   BeagleBone and BeagleBone Black.
  </p>
- <img src="{{site.baseurl}}/static/images/what-is-a-cape.png" width="100%" />
+ <img class="wow fadeIn" src="{{site.baseurl}}/static/images/what-is-a-cape.png" width="100%" />
  <p>The types of capes available is quite diverse, from 3D printer capes and
   touchscreen displays to wireless communications and FPGA-based prototyping tools.
  </p>
- <img src="{{site.baseurl}}/static/images/cape-eeprom.png" width="100%" />
+ <img class="wow fadeIn" src="{{site.baseurl}}/static/images/cape-eeprom.png" width="100%" />
  <p>Every cape that utilizes pins on the expansion header is expected to notify
   software on the board by providing contents within EEPROM connected to I2C2 with
   an address from 0x54 to 0x57.  To work with other capes, you can make your
@@ -350,7 +352,7 @@ function toggle() {
   to provide through connectors such that other capes can also get connections to
   the cape header pins.
  </p>
- <img src="{{site.baseurl}}/static/images/black-emmc-and-hdmi-pins.png" width="100%" />
+ <img class="wow fadeIn" src="{{site.baseurl}}/static/images/black-emmc-and-hdmi-pins.png" width="100%" />
  <p>BeagleBone Black ships with two virtual capes already on it, one for the
   on-board eMMC storage and one for the HDMI output.  When configured for use
   these virtual capes consume actual resources.
@@ -371,3 +373,21 @@ function toggle() {
   <li><em><a href="{{site.baseurl}}/Support/BoneScript/cape_bacon">Bacon Cape</a></em> - Teach basic interactions</li>
  </ul>
 </div>
+
+<script type="text/javascript">
+  // var wow = new WOW(
+  //   {
+  //     boxClass:     'wow',      // animated element css class (default is wow)
+  //     animateClass: 'animated', // animation css class (default is animated)
+  //     offset:       0,          // distance to the element when triggering the animation (default is 0)
+  //     mobile:       true,       // trigger animations on mobile devices (default is true)
+  //     live:         true,       // act on asynchronously loaded content (default is true)
+  //     callback:     function(box) {
+  //       // the callback is fired every time an animation is started
+  //       // the argument that is passed in is the DOM node being animated
+  //     }
+  //   }
+  // );
+  // wow.init();
+  new WOW().init();
+</script>
