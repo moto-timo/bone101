@@ -2,7 +2,7 @@
 layout: index
 title: bone101
 styles: [ '/static/third_party/animate/animate.min.css' ]
-scripts: [ '/static/bonescript-demo.js', '/static/third_party/wow/wow.min.js' ]
+scripts: [ '/static/bonescript-demo.js', '/static/jquery-ui.min.js', '/static/third_party/wow/wow.min.js' ]
 style: |
    #code {
     position: relative;
@@ -175,7 +175,7 @@ function restore() {
   target="_blank">Cloud9 IDE</a> and the <a target="_blank"
   href="http://beagleboard.org/project/bonescript">BoneScript JavaScript library</a>, 
   creating a simple application to blink one of the 4 user programmable LEDs on the
-  BeagleBone is a good start. <a class ="cloud9ide" href="#cloud9" onclick="showHide('cloud9ide')">More...</a></p>
+  BeagleBone is a good start.</p>
   <div id="cloud9ide" style="display: none;">
  <ul class="action">
   <li class="wow fadeIn"><b>Step A:</b>&nbsp;Close any open file tabs.<br /><br />
@@ -281,7 +281,7 @@ function toggle() {
  <h3>Other programming environments</h3>
  <p>The board also ships with gcc, python and more that can be invoked directly from the command-line.</p>
 </div>
- <hr>
+<table><tr><td><a class ="cloud9ide" href="#cloud9" onclick="showHide('cloud9ide')"><span class="ui-icon ui-icon-arrowthick-1-n"></span></a></td><td width="100%"><hr></td></tr></table>
  <h1 id="hardware">Hardware documentation</h1>
  <p><a target="_blank" href="http://circuitco.com/support/index.php?title=BeagleBoneBlack">
   CircuitCo.com's BeagleBoneBlack page</a> documents all of the known hardware issues, 
@@ -398,12 +398,16 @@ function toggle() {
   // );
   // wow.init();
   new WOW().init();
-  function showHide(sellctor) {
-    $('#' + sellctor).toggle();
-    $anchor = $('a.' + sellctor);
-    if($anchor.text() == 'More...')
-      $anchor.text('Less...');
+  function showHide(selector) {
+    var icons = {
+      header: "ui-icon-circle-arrow-e",
+      activeHeader: "ui-icon-circle-arrow-s"
+    };
+    $('#' + selector).toggle();
+    $a = $('a.' + selector);
+    if($a.html() == '<span class="ui-icon ui-icon-arrowthick-1-s"></span>')
+	    $a.html('<span class="ui-icon ui-icon-arrowthick-1-n"></span>');
     else
-      $anchor.text('More...');
+	    $a.html('<span class="ui-icon ui-icon-arrowthick-1-s"></span>');
   }
 </script>
